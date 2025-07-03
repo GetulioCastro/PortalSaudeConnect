@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using PortalSaudeConnect.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<PortalContext>((optionsAction) =>
+{
+    var connString = builder.Configuration.GetConnectionString("PortalConnection");
+    optionsAction.UseSqlServer(connString);
+});
 
 var app = builder.Build();
 
