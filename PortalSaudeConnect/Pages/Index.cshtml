@@ -1,0 +1,12 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Portal Saúde Connect";
+    Layout = "_Layout";
+}
+
+<section class="hero text-center p-5 bg-light">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p class="lead">Integração entre clínicas de saúde com prontuário eletrônico inteligente e seguro.</p>
+    <a asp-page="/Account/Login" class="btn btn-primary btn-lg mt-3">Acesso Restrito</a>
+</section>

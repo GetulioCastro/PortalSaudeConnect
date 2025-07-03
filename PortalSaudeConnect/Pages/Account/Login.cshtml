@@ -1,0 +1,19 @@
+﻿@page "/account/login"  
+@model LoginModel  
+@{  
+    Layout = "_Layout";  
+}  
+
+<h2>Acesso Restrito</h2>  
+
+<form method="post" class="mt-4">  
+    <div class="mb-3">  
+        <label>E-mail</label>  
+        <input type="email" name="Email" class="form-control" required />  
+    </div>  
+    <div class="mb-3">  
+        <label>Senha</label>  
+        <input type="password" name="Password" class="form-control" required />  
+    </div>  
+    <button type="submit" class="btn btn-success">Entrar</button>  
+</form>

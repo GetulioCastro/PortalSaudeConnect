@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="navbar navbar-expand navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" asp-page="/Index">@ViewData["Title"]</a>
+        </div>
+    </header>
+    <main role="main" class="container mt-4">
+        @RenderBody()
+    </main>
+    <footer class="footer text-center mt-5">
+        <span class="text-muted">© 2025 SaúdeConnect</span>
+    </footer>
+</body>
+</html>
