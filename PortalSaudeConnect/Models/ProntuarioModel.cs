@@ -8,7 +8,7 @@ namespace PortalSaudeConnect.Models
     {
     
         [Key]
-        public int Id { get; set; }
+        public int IdProntuario { get; set; }
 
         [Required(ErrorMessage = "O ID do paciente é obrigatório.")]
         public int PacienteId { get; set; }

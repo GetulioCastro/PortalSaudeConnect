@@ -8,6 +8,9 @@ namespace PortalSaudeConnect.Infrastructure.Data
         public DbSet<PacienteModel> Pacientes { get; set; }
         public DbSet<ProntuarioModel> Prontuarios { get; set; }
         public DbSet<EncaminhamentoModel> Encaminhamentos { get; set; }
+        public DbSet<ProcedimentoModel> Procedimentos { get; set; }
+        public DbSet<ClinicaModel> Clinicas { get; set; }
+        public DbSet<UsuarioModel> Usuarios { get; set; }
 
         public PortalContext(DbContextOptions<PortalContext> dbContextOptions): base(dbContextOptions)
         {
@@ -27,9 +30,26 @@ namespace PortalSaudeConnect.Infrastructure.Data
                 .HasForeignKey(e => e.ProntuarioId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<ProcedimentoModel>()
+                .HasOne(pm => pm.Encaminhamento)
+                .WithMany(e => e.Procedimentos)
+                .HasForeignKey(p => p.EncaminhamentoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UsuarioModel>()
+                .HasOne(um => um.Clinica)
+                .WithMany(cm => cm.Usuarios)
+                .HasForeignKey(u => u.ClinicaId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ClinicaModel>()
+                .HasMany(cm => cm.Usuarios)
+                .WithOne(um => um.Clinica)
+                .HasForeignKey(u => u.ClinicaId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

@@ -28,7 +28,7 @@ namespace PortalSaudeConnect.Models
 
         [DataType(DataType.MultilineText)]
         [StringLength(500, ErrorMessage = "As observações internas não podem exceder 500 caracteres.")]
-        public string? ObservacoesInternasDestino { get; set; } // Anotações da clínica de destino sobre o processo
+        public string? ObservacoesDaSolicitacao { get; set; } // Observações à cerca da solcitação, entenda o pedido.
 
         // --- Campos de Conclusão do Exame/Procedimento ---
         // Estes são os campos que você mencionou para o feedback da Clínica de Destino.
@@ -55,7 +55,8 @@ namespace PortalSaudeConnect.Models
 
         // --- Auditoria ---
         [Required]
-        public DateTime DataCriacaoRegistro { get; set; } = DateTime.Now; // Quando este registro de encaminhamento foi criado
+        public DateTime DataCriacaoRegistro { get; set; } = DateTime.Now;
+        public ICollection<ProcedimentoModel> Procedimentos { get; set; } = new List<ProcedimentoModel>();
 
     }
 }
