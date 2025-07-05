@@ -2,21 +2,85 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Site destinado a envio e recebimento de documentos comunicações entre Clínicas Parceiras." />
+    <meta name="author" content="Getúlio Augusto Ferreira de Castro Júnior" />
+    <title>@ViewData["Title"] - Sisac Brasil</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
+    <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <header class="navbar navbar-expand navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" asp-page="/Index">@ViewData["Title"]</a>
+<body class="layout-rtl nav-fixed">
+    <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
+        <form class="form-inline me-auto d-none d-lg-block me-3 p-5">
+            <div class="input-group input-group-joined input-group-solid">
+                <input class="form-control pe-0" type="search" placeholder="Busque um serviço..." aria-label="Search" />
+                <div class="input-group-text"><i data-feather="search"></i></div>
+            </div>
+        </form>
+        <li class="nav-item dropdown no-caret d-none d-sm-block me-3 dropdown-notifications">
+            <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownAlerts" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="bell"></i></a>
+            <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownAlerts">
+                <h6 class="dropdown-header dropdown-notifications-header">
+                    <i class="me-2" data-feather="bell"></i>
+                    Central de Notificações
+                </h6>
+                <!-- Example Alert 1-->
+                <a class="dropdown-item dropdown-notifications-item" href="#!">
+                    <div class="dropdown-notifications-item-icon bg-warning"><i data-feather="activity"></i></div>
+                    <div class="dropdown-notifications-item-content">
+                        <div class="dropdown-notifications-item-content-details" onload="mostrarDataAtual"><span id="data"></span></div>
+                        <div class="dropdown-notifications-item-content-text">Isto é um alerta de mensage. Não é nada sério, mas requer sua atenção.</div>
+                    </div>
+                </a>
+            </div>
+        </li>
+    </nav>
+    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+        <div class="container-xl px-4">
+            <div class="page-header-content pt-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto mt-4">
+                        <h1 class="page-header-title pt-5">
+                            <div class="page-header-icon"><i data-feather="activity"></i></div>
+                            Dashboard - Sisac Brasil
+                        </h1>
+                        <div class="page-header-subtitle">Modelo MVP de Portal de Integração entre Clínicas Parceiras.</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
+    <div class="container-xl px-4 mt-n10">
+        <div class="card mb-4"><div class="card-body py-10">Este é um exemplo de Layout para o Portal Saúde Connect.</div></div>
+    </div>
     <main role="main" class="container mt-4">
         @RenderBody()
     </main>
-    <footer class="footer text-center mt-5">
-        <span class="text-muted">© 2025 SaúdeConnect</span>
+    <footer class="footer-admin mt-auto footer-light">
+        <div class="container-xl px-4">
+            <div class="row">
+                <div class="col-md-6 small">Copyright &copy; Portal Saúde Connect - @DateTime.Now.Year</div>
+                <div class="col-md-6 text-md-end small">
+                    <a href="#!">Política de Privacidade</a>
+                    &middot;
+                    <a href="#!">Termos &amp; Condições</a>
+                </div>
+            </div>
+        </div>
     </footer>
+    <script>
+            function mostrarDataAtual() {
+              const dataAtual = new Date();
+              const dataFormatada = dataAtual.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              });
+              document.getElementById('data').textContent = dataFormatada;
+        }    
+    </script>
 </body>
 </html>
