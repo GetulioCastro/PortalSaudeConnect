@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalSaudeConnect.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using PortalSaudeConnect.Infrastructure.Data;
 namespace PortalSaudeConnect.Migrations
 {
     [DbContext(typeof(PortalContext))]
-    partial class PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250707130632_CorrecoesDbContext")]
+    partial class CorrecoesDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +42,7 @@ namespace PortalSaudeConnect.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailContato")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -364,12 +368,13 @@ namespace PortalSaudeConnect.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("TipoAcessoPortal")
                         .HasMaxLength(20)
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TipoAcessoPortal")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("IdUsuario");
 

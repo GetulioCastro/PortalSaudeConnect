@@ -1,8 +1,85 @@
-﻿@page
+﻿@page "/areas/clinicaorigem/pages/index"
 @model PortalSaudeConnect.Areas.ClinicaOrigem.Pages.IndexModel
 @{
     Layout = "_Layout";
 }
 
-<h2>Painel da Clínica de Origem</h2>
+<h2>Painel da Clínica Sisac Brasil</h2>
 <p>Aqui serão gerados e gerenciados os encaminhamentos e prontuários.</p>
+<div id="layoutSidenav_nav">
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <div class="sidenav-menu-heading">ADMINISTRATIVO</div>
+                <!-- Sidenav Accordion (Pages)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
+                    Cadastros
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapsePages" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
+                        <!-- Nested Sidenav Accordion (Pages -> Account)-->
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAccount" aria-expanded="false" aria-controls="pagesCollapseAccount">
+                            Cadastros Gerais
+                            <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseAccount" data-bs-parent="#accordionSidenavPagesMenu">
+                            <nav class="sidenav-menu-nested nav">
+                                <a class="nav-link" href="#!">Usuários</a>
+                                <a class="nav-link" href="#!">Pacientes</a>
+                                <a class="nav-link" href="#!">Médicos</a>
+                                <a class="nav-link" href="#!">Clínicas Parceiras</a>
+                            </nav>
+                        </div>
+                        <!-- Nested Sidenav Accordion (Pages -> Authentication)-->
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            Encaminhamentos
+                            <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseAuth" data-bs-parent="#accordionSidenavPagesMenu">
+                            <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesAuth">
+                                <!-- Nested Sidenav Accordion (Pages -> Authentication -> Basic)-->
+                                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuthBasic" aria-expanded="false" aria-controls="pagesCollapseAuthBasic">
+                                    Exames/Procedimentos de Imagem
+                                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <!-- Nested Sidenav Accordion (Pages -> Authentication -> Social)-->
+                                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuthSocial" aria-expanded="false" aria-controls="pagesCollapseAuthSocial">
+                                    Exames Laboratoriais
+                                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                            </nav>
+                        </div>
+                        <!-- Nested Sidenav Accordion (Pages -> Error)-->
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                            Relatórios
+                            <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseError" data-bs-parent="#accordionSidenavPagesMenu">
+                            <nav class="sidenav-menu-nested nav">
+                                <a class="nav-link" href="#!">Relatório 01</a>
+                                <a class="nav-link" href="#!">Relatório 02</a>
+                                <a class="nav-link" href="#!">Relatório 03</a>
+                                <a class="nav-link" href="#!">Relatório 04</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link" href="pricing.html">A Configurar</a>
+                        <a class="nav-link" href="invoice.html">A Configurar</a>
+                    </nav>
+                </div>
+                <!-- Sidenav Footer-->
+                <div class="sidenav-footer">
+                    <div class="sidenav-footer-content">
+                        <div class="sidenav-footer-subtitle"><strong>Usuário Logado:</strong></div>
+                        <div class="sidenav-footer-title">
+                            @ViewData["NomeUsuarioLogado"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+

@@ -37,6 +37,10 @@ namespace PortalSaudeConnect.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<UsuarioModel>()
+                .Property(um => um.Senha)
+                .HasMaxLength(255);
+
+            modelBuilder.Entity<UsuarioModel>()
                 .HasOne(um => um.Clinica)
                 .WithMany(cm => cm.Usuarios)
                 .HasForeignKey(u => u.ClinicaId)
@@ -47,6 +51,10 @@ namespace PortalSaudeConnect.Infrastructure.Data
                 .WithOne(um => um.Clinica)
                 .HasForeignKey(u => u.ClinicaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UsuarioModel>()
+                .Property(u => u.TipoAcessoPortal)
+                .HasColumnType("bit");
 
 
             base.OnModelCreating(modelBuilder);
