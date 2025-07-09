@@ -1,0 +1,22 @@
+﻿@page
+@model PortalSaudeConnect.Pages.Account.AccessDeniedModel
+@{
+    ViewData["Title"] = "Acesso Negado";
+}
+
+<div class="container mt-5">
+    <div class="card text-center shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-header bg-danger text-white">
+            <h4>Acesso Negado!</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Você não tem permissão para acessar esta página.</h5>
+            <p class="card-text">Por favor, verifique suas credenciais ou entre em contato com o administrador do sistema.</p>
+            <a asp-page="/Index" class="btn btn-primary mt-3">Voltar para a Página Inicial</a>
+            <a asp-page="/Account/Login" class="btn btn-secondary mt-3">Tentar Fazer Login Novamente</a>
+        </div>
+        <div class="card-footer text-muted">
+            Portal Saúde Connect
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@page
+@model PortalSaudeConnect.Pages.Encaminhamentos.NovoModel
+@{
+    ViewData["Title"] = "Novo Encaminhamento";
+}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Formulário de Encaminhamento de Paciente</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input type="hidden" asp-for="Encaminhamento.DataCriacaoRegistro" />
+                        <input type="hidden" asp-for="Encaminhamento.DataRecebimentoDestino" />
+                        <input type="hidden" asp-for="Encaminhamento.StatusAtual" />
+                        <input type="hidden" asp-for="Encaminhamento.ExameProcedimentoRealizado" />
+                        <input type="hidden" asp-for="Encaminhamento.LaudoParecerEnviado" />
+
+                        <div class="mb-3">
+                            <label asp-for="ClinicaDestinoId" class="form-label">Encaminhar para a Clínica:</label>
+                            <select asp-for="ClinicaDestinoId" asp-items="@Model.ClinicasDestino" class="form-control">
+                                <option value="">-- Selecione uma Clínica --</option>
+                            </select>
+                            <span asp-validation-for="ClinicaDestinoId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Encaminhamento.ProntuarioId" class="form-label">ID do Prontuário do Paciente:</label>
+                            <input asp-for="Encaminhamento.ProntuarioId" type="number" class="form-control" placeholder="Digite o ID do Prontuário" />
+                            <span asp-validation-for="Encaminhamento.ProntuarioId" class="text-danger"></span>
+                            <small class="form-text text-muted">Ainda não implementamos a busca automática de prontuário por ID neste MVP.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Encaminhamento.ObservacoesDaSolicitacao" class="form-label">Observações sobre a Solicitação:</label>
+                            <textarea asp-for="Encaminhamento.ObservacoesDaSolicitacao" class="form-control" rows="4" placeholder="Detalhes adicionais sobre o encaminhamento..."></textarea>
+                            <span asp-validation-for="Encaminhamento.ObservacoesDaSolicitacao" class="text-danger"></span>
+                        </div>
+
+                        <hr />
+                        <h5>Procedimentos Solicitados</h5>
+                        <div id="procedimentos-container">
+                            <div class="mb-3">
+                                <label for="Procedimentos[0].Descricao" class="form-label">Descrição do Procedimento:</label>
+                                <input type="text" name="Procedimentos[0].Descricao" class="form-control" placeholder="Ex: Ultrassonografia de Abdômen" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="Procedimentos[0].Observacoes" class="form-label">Observações do Procedimento:</label>
+                                <textarea name="Procedimentos[0].Observacoes" class="form-control" rows="2" placeholder="Informações específicas sobre este procedimento"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" id="add-procedimento" class="btn btn-info btn-sm mb-3">Adicionar Mais Procedimento</button>
+                        <hr />
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">Gravar e Enviar Encaminhamento</button>
+                            <a asp-page="/Index" class="btn btn-secondary btn-lg">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        let procedimentoIndex = 1;
+        document.getElementById('add-procedimento').addEventListener('click', function () {
+            const container = document.getElementById('procedimentos-container');
+            const newProcedimentoHtml = `
+                <div class="mb-3 border p-3 rounded mt-3">
+                    <h6>Procedimento ${procedimentoIndex + 1}</h6>
+                    <label for="Procedimentos[${procedimentoIndex}].Descricao" class="form-label">Descrição do Procedimento:</label>
+                    <input type="text" name="Procedimentos[${procedimentoIndex}].Descricao" class="form-control" placeholder="Ex: Ultrassonografia de Abdômen" />
+                    <label for="Procedimentos[${procedimentoIndex}].Observacoes" class="form-label mt-2">Observações do Procedimento:</label>
+                    <textarea name="Procedimentos[${procedimentoIndex}].Observacoes" class="form-control" rows="2" placeholder="Informações específicas sobre este procedimento"></textarea>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', newProcedimentoHtml);
+            procedimentoIndex++;
+        });
+    </script>
+}

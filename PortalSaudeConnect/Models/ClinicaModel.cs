@@ -65,6 +65,18 @@ namespace PortalSaudeConnect.Models
         public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         public ICollection<UsuarioModel> Usuarios { get; set; } = new List<UsuarioModel>();
+
+        // <<<<<<<<<< ADICIONE ESTA LINHA AQUI >>>>>>>>>>
+        // Propriedade de navegação para prontuários
+        public ICollection<ProntuarioModel> Prontuarios { get; set; } = new List<ProntuarioModel>();
+
+        // <<<<<<<<<< ADICIONE ESTA LINHA AQUI >>>>>>>>>>
+        // Propriedade de navegação para encaminhamentos que esta clínica ENVIOU
+        public ICollection<EncaminhamentoModel> EncaminhamentosEnviados { get; set; } = new List<EncaminhamentoModel>();
+
+        // <<<<<<<<<< ADICIONE ESTA LINHA AQUI >>>>>>>>>>
+        // Propriedade de navegação para encaminhamentos que esta clínica RECEBEU
+        public ICollection<EncaminhamentoModel> EncaminhamentosRecebidos { get; set; } = new List<EncaminhamentoModel>();
     }
 }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalSaudeConnect.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using PortalSaudeConnect.Infrastructure.Data;
 namespace PortalSaudeConnect.Migrations
 {
     [DbContext(typeof(PortalContext))]
-    partial class PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250709141517_AdicionarEntidadesEncaminhamentoEProcedimento")]
+    partial class AdicionarEntidadesEncaminhamentoEProcedimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,8 +152,6 @@ namespace PortalSaudeConnect.Migrations
 
                     b.HasKey("IdEncaminhamento");
 
-                    b.HasIndex("ClinicaDestinoId");
-
                     b.HasIndex("ClinicaOrigemId");
 
                     b.HasIndex("ProntuarioId");
@@ -168,8 +169,11 @@ namespace PortalSaudeConnect.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
@@ -178,17 +182,45 @@ namespace PortalSaudeConnect.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("NomeCompleto")
+                    b.Property<string>("EnderecoBairro")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EnderecoCep")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("EnderecoCidade")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EnderecoComplemento")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("EnderecoEstado")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("EnderecoLogradouro")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("EnderecoNumero")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("NomePaciente")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Sexo")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TelefonePrincipal")
+                    b.Property<string>("TelefoneContato")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -261,22 +293,56 @@ namespace PortalSaudeConnect.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProntuario"));
 
-                    b.Property<int>("ClinicaId")
-                        .HasColumnType("int");
+                    b.Property<string>("CRMSolicitante")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ClinicaDestino")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ClinicaOrigem")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("HistoricoClinicoResumido")
+                    b.Property<DateTime>("DataEncaminhamento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExameSolicitado")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("HistoricoConsulta")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("MotivoEncaminhamento")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ObservacoesEncaminhamento")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("int");
 
-                    b.HasKey("IdProntuario");
+                    b.Property<string>("ProfissionalSolicitante")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("ClinicaId");
+                    b.Property<string>("StatusEncaminhamento")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("IdProntuario");
 
                     b.HasIndex("PacienteId");
 
@@ -325,16 +391,10 @@ namespace PortalSaudeConnect.Migrations
 
             modelBuilder.Entity("PortalSaudeConnect.Models.EncaminhamentoModel", b =>
                 {
-                    b.HasOne("PortalSaudeConnect.Models.ClinicaModel", "ClinicaDestino")
-                        .WithMany("EncaminhamentosRecebidos")
-                        .HasForeignKey("ClinicaDestinoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("PortalSaudeConnect.Models.ClinicaModel", "ClinicaOrigem")
-                        .WithMany("EncaminhamentosEnviados")
+                        .WithMany()
                         .HasForeignKey("ClinicaOrigemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PortalSaudeConnect.Models.ProntuarioModel", "ProntuarioPaciente")
@@ -342,8 +402,6 @@ namespace PortalSaudeConnect.Migrations
                         .HasForeignKey("ProntuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("ClinicaDestino");
 
                     b.Navigation("ClinicaOrigem");
 
@@ -355,7 +413,7 @@ namespace PortalSaudeConnect.Migrations
                     b.HasOne("PortalSaudeConnect.Models.EncaminhamentoModel", "Encaminhamento")
                         .WithMany("Procedimentos")
                         .HasForeignKey("EncaminhamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Encaminhamento");
@@ -363,21 +421,13 @@ namespace PortalSaudeConnect.Migrations
 
             modelBuilder.Entity("PortalSaudeConnect.Models.ProntuarioModel", b =>
                 {
-                    b.HasOne("PortalSaudeConnect.Models.ClinicaModel", "Clinica")
-                        .WithMany("Prontuarios")
-                        .HasForeignKey("ClinicaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PortalSaudeConnect.Models.PacienteModel", "Paciente")
+                    b.HasOne("PortalSaudeConnect.Models.PacienteModel", "PacienteNome")
                         .WithMany("Prontuarios")
                         .HasForeignKey("PacienteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Clinica");
-
-                    b.Navigation("Paciente");
+                    b.Navigation("PacienteNome");
                 });
 
             modelBuilder.Entity("PortalSaudeConnect.Models.UsuarioModel", b =>
@@ -393,12 +443,6 @@ namespace PortalSaudeConnect.Migrations
 
             modelBuilder.Entity("PortalSaudeConnect.Models.ClinicaModel", b =>
                 {
-                    b.Navigation("EncaminhamentosEnviados");
-
-                    b.Navigation("EncaminhamentosRecebidos");
-
-                    b.Navigation("Prontuarios");
-
                     b.Navigation("Usuarios");
                 });
 

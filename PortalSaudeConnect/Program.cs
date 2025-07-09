@@ -16,6 +16,27 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = true;
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SomenteClinicaOrigem", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("TipoAcessoPortal", "True");
+    });
+
+    options.AddPolicy("SomenteClinicaDestino", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("TipoAcessoPortal", "False");
+    });
+
+    options.AddPolicy("QualquerClinicaAutenticada", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("TipoAcessoPortal");
+    });
+});
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<PortalContext>((optionsAction) =>
@@ -37,7 +58,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

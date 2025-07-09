@@ -1,0 +1,29 @@
+﻿@page
+@model PortalSaudeConnect.Pages.Encaminhamentos.ConfirmacaoEnvioModel
+@{
+    ViewData["Title"] = "Confirmação de Envio";
+}
+<div class="container mt-5">
+    <div class="card text-center shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-header bg-success text-white">
+            <h4>Encaminhamento Enviado com Sucesso!</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Seu encaminhamento foi registrado e enviado para a clínica de destino.</h5>
+            <p class="card-text">O sistema de destino será notificado sobre o novo encaminhamento. Você pode acompanhar o status na sua lista de encaminhamentos.</p>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-3" role="alert">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            <a asp-page="/Encaminhamentos/Novo" class="btn btn-primary mt-3">Fazer Novo Encaminhamento</a>
+            <a asp-page="/Dashboards/Origem" class="btn btn-secondary mt-3">Voltar ao Painel</a> @* Ajuste para o dashboard correto *@
+        </div>
+        <div class="card-footer text-muted">
+            Portal Saúde Connect
+        </div>
+    </div>
+</div>
